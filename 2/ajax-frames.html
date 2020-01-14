@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<head>
+    <script>
+        
+    /*
+
+    When a request is sent, the query is sent as a query string sent to the server, which is a set of key value pairs, representing the fields of the form.
+    Server side script executes the code and sends back the response message.
+    In AJAX, these responses and requests were carried out asynchronously.
+
+    JavaScript introduced XML HTTP Request objects to handle asynchronous requests. (XHR)
+    The introduced techniques such as 
+    1. iFrames
+    2. Images
+    3. Scripts
+    4. XHR
+    led to the development of asynchronous requests.
+
+    Iframes were used to produce divs of sort that rendered webpages in that iframe.
+
+    */
+        
+    var obj = {
+        
+        getDetails : function() {
+            // alert("Getting details");
+            var fr = document.getElementById("hf");
+            fr.src = "http://localhost/webtech2/2/ajax - frames.php?srn=" + document.getElementById("srn").value;
+        },
+        updateDetails : function(str) {
+            // populate the text boxes
+            alert(str);
+        }
+    };
+
+
+
+
+    </script>
+</head>
+
+
+<body>
+
+    <form action="ajax - frames.php" method="POST">
+
+        <label>SRN :  &nbsp;&nbsp;<input type="text" id="srn" onblur="obj.getDetails()"></label>
+        <br><br>
+        <label>Name : <input type="text" id="name"></label>
+        <br><br>
+        <label>GPA :  &nbsp;&nbsp;<input type="text" id="gpa"></label>
+        <br><br>
+        <iframe id = "hf"></iframe>
+        <br><br>
+        
+        <input type="submit" id="sub">
+    </form>
+
+</body>
+</html>
