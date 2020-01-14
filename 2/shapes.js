@@ -26,3 +26,5 @@ Square.prototype.constructor = Square;
 
 var sq = new Square(5);
 console.log(sq.area());
+
+// We don't assign Square's prototype to the Rectangle's prototype to avoid the Rectangle accessing the Square.
