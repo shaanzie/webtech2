@@ -30,7 +30,11 @@
         },
         updateDetails : function(str) {
             // populate the text boxes
-            alert(str);
+            // alert(str);
+            var arr = str.split(";");
+            // console.log(str);
+            document.getElementById("name").value = arr[0].split(":")[1];
+            document.getElementById("gpa").value = arr[1].split(":")[1];
         }
     };
 
