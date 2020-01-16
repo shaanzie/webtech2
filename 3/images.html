@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+
+
+    <script>
+
+      /*
+
+      Images can be used as error checking mechanisms. PHP is used to generate images using the gdi library.
+
+      */
+
+      var obj = {
+        chkuser : function() {
+          im = document.createElement("img");
+          var ip = document.getElementById("uname").value;
+          im.src = "http://localhost/webtech2/3/images.php?uname="+ip;
+          im.onload = this.success;
+          im.onerror = this.fail;
+        },
+        success : function() {
+            if(im.height == 1) {
+              document.getElementById("msg").innerHTML = "User name is available";
+            }
+            else if(im.height == 2) {
+              document.getElementById("msg").innerHTML = "User name not available";
+            }
+
+        },
+        fail : function() {
+            document.getElementById("msg").innerHTML = "Nothing came!";
+        }
+      };
+
+    </script>
+
+</head>
+
+<body>
+        <label>Username: <input type="text" id="uname" onblur="obj.chkuser()"></label><br>
+        <div id = "msg">
+        </div>
+        <br>
+        <label>Password: <input type="text" id="pwd"></label><br>
+        <label>Confirm:  <input type="text" id ="cnf" ></label><br>
+</body>
+</html>
+
+</html>
