@@ -9,7 +9,7 @@
     </style>
 
     <script>
-        
+
     /*
 
         Frames can be hidden using CSS or the frame properties can be modified.
@@ -22,13 +22,13 @@
 
         Another problem with hidden frames is that there is poor error handling. There is no way for the parent window to know a problem with a child window.
 
-        The form element has an attribute called target, which is the name of the hidden frame to which the data should retrun to after processing.    
+        The form element has an attribute called target, which is the name of the hidden frame to which the data should retrun to after processing.
 
-
+        The gdi library in PHP allows sending of image data as binary responses.
     */
-        
+
     var obj = {
-        
+
         getDetails : function() {
             // alert("Getting details");
             var fr = document.getElementById("hf");
@@ -61,7 +61,7 @@
         <br><br>
         <iframe id = "hf"></iframe>
         <br><br>
-        
+
         <input type="submit" id="sub">
     </form>
 
