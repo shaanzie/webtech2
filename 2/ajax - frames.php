@@ -13,9 +13,7 @@
     }
 
     // echo $res;
-    echo "<html>";
     echo "<script>";
     echo "parent.obj.updateDetails('$res');";    
     echo "</script>";
-    echo "</html>";
-?>
+    ?>
