@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<head>
+
+    <style>
+        #hf{
+            display: none;
+        }
+    </style>
+
+    <script>
+        
+    /*
+
+        Frames can be hidden using CSS or the frame properties can be modified.
+        Iframe history is maintained when the back button is pressed.
+        Hidden frames is an AJAX technique, and it's advantage is that it maintains the history.
+
+        Hidden frames inside other frames cannot access other websites, and this is known as cross domain access.
+        This is not allowed as the child frame can modify the entire parent window. Cross server references are hence, not allowed.
+        This is disadvantageous because data from other web servers cannot be rendered on a target webpage.
+
+        Another problem with hidden frames is that there is poor error handling. There is no way for the parent window to know a problem with a child window.
+
+        The form element has an attribute called target, which is the name of the hidden frame to which the data should retrun to after processing.    
+
+
+    */
+        
+    var obj = {
+        
+        getDetails : function() {
+            // alert("Getting details");
+            var fr = document.getElementById("hf");
+            fr.src = "http://localhost/webtech2/3/ajax_frames.php?srn=" + document.getElementById("srn").value;
+        },
+        updateDetails : function(str) {
+            // populate the text boxes
+            // alert(str);
+            var arr = str.split(";");
+            // console.log(str);
+            document.getElementById("srn").value = arr[0].split(":")[1];
+            document.getElementById("name").value = arr[1].split(":")[1];
+            document.getElementById("gpa").value = arr[2].split(":")[1];
+        }
+    };
+
+    </script>
+</head>
+
+
+<body>
+
+    <form action="ajax - frames.php" method="POST">
+
+        <label>SRN :  &nbsp;&nbsp;<input type="text" id="srn" onblur="obj.getDetails()"></label>
+        <br><br>
+        <label>Name : <input type="text" id="name"></label>
+        <br><br>
+        <label>GPA :  &nbsp;&nbsp;<input type="text" id="gpa"></label>
+        <br><br>
+        <iframe id = "hf"></iframe>
+        <br><br>
+        
+        <input type="submit" id="sub">
+    </form>
+
+</body>
+</html>
