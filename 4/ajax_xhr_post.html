@@ -12,14 +12,13 @@
             this.xhr.onreadystatechange = this.showData;
             this.xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
             this.xhr.send("ath="+athlete);
-
           },
           showData : function() {
             if(this.readyState == 4 && this.status == 200)
               // alert(this.responseText);
               var json = JSON.parse(this.responseText);
-              document.getElementById("sports").value = json.sport.toString();
-              document.getElementById("country").value = json.country.toString();
+              document.getElementById("sports").value = json.sport;
+              document.getElementById("country").value = json.country;
             }
         }
     </script>
