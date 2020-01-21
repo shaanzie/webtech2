@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+    /*
+    Instead of sending images we can send cookies. Using images is not advantageous as it is mainly for binary responses, uses only GET and maintains no history.
+    In the client side, check if the cookie is set or not. This allows more than just binary responses.
+    But cookies have a size limitation and users may disable cookies on their browsers. Similarly, images can be disabled on users as well.
+    (TODO)CSS and dynamic scripts can be used as AJAX responses. Images do not need to be rendered for the script to work, but dynamic scripts need to be added to the dom.
+
+    This led to the advent of xhr or XML HTTP Requests. This is a JS object made for asynchronous communication. First, an instance of xhr is created and methods are used via this object.
+    The main method used by an xhr object is open(http method, URL, async(bool)).
+    The second method used is xhr.send();
+    It has a few properties
+    1. readyState = cycles through 0(Request is not initialised),1(The Request has not been setup),2(Request has been sent),3(Request is in process),4(Request is complete).
+                    obj.readyState holds the status of the server response.
+    2. onreadystatechange = This event occurs whenever the readyState's value changes, and triggers an event.
+    3. status = This property provides the HTTP status code received as a response from the server.
+
+    The information is received correctly from the server when readyState = 4 && status == 200. The responseText object gives the data provided by the server.
+    */
+
+    var obj = {
+      xhr : new XMLHttpRequest(),
+      getData : function() {
+          this.xhr.open("GET", "http://localhost/webtech2/4/ajax.txt", true); // Value is true by default
+          this.xhr.onreadystatechange = this.showData;
+          this.xhr.send();
+      },
+      showData : function() {
+        console.log(this);
+      }
+    }
+
+    </script>
+    <button onclick="obj.getData()">Click me!</button>
+  </body>
+</html>
