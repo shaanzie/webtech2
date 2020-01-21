@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head>
+    <title>Home</title>
+
+    <script type="text/javascript">
+        var obj = {
+          xhr : new XMLHttpRequest(),
+          getData : function() {
+            // Can put ready state before this as well
+            var athlete = document.getElementById("athname").value;
+            this.xhr.open("POST", "http://localhost/webtech2/4/getsport.php",true);
+            this.xhr.onreadystatechange = this.showData;
+            this.xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            this.xhr.send("ath="+athlete);
+
+          },
+          showData : function() {
+            if(this.readyState == 4 && this.status == 200)
+              // alert(this.responseText);
+              var json = JSON.parse(this.responseText);
+              document.getElementById("sports").value = json.sport.toString();
+              document.getElementById("country").value = json.country.toString();
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    Sportperson: <input type="text" id = "athname" onblur="obj.getData()"/><br>
+    Sport: <input type="text" id = "sports" readonly/><br>
+    Country: <input type="text" id = "country" readonly/><br>
+</body>
+</html>
