@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+
+    var obj = {
+      xhr : new XMLHttpRequest(),
+      getVideo : function() {
+          this.xhr.open("GET", "http://localhost/webtech2/5/video.php", true); // Value is true by default
+          this.xhr.responseType="blob";
+          this.xhr.onreadystatechange = this.showVideo;
+          this.xhr.send();
+      },
+      showVideo : function() {
+        if(this.readyState == 4 && this.status == 200) {
+          var vid = document.createElement("video");
+          vid.src = URL.createObjectURL(this.response);
+          vid.controls=true;
+          document.body.appendChild(vid);
+        }
+      }
+    }
+
+    </script>
+    <button onclick="obj.getVideo()">Click me!</button>
+  </body>
+</html>
