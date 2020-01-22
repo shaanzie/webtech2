@@ -27,7 +27,9 @@
           The history object is used to store the state of the history stack, both forward and backward.
           XHR does not maintain history by default, and needs to be explicitly used with a history API.
           The onpopstate event occurs when the back button is clicked, where one state object is popped out from the history stack.
-
+          GET requests must maintain history, but POST requests are not required to maintain history.
+          BLOB : Binary large objects
+          But the normal <video> tag is also async. The AJAX construct is used to monitor the chunks coming in piece by piece, and is used in streaming.
           */
           retrieve : function(e) {
             var histobject = e.state;
