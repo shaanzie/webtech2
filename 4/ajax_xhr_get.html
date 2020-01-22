@@ -7,11 +7,13 @@
           xhr : new XMLHttpRequest(),
           getData : function() {
             // Can put ready state before this as well
-            this.xhr.open("GET", "http://localhost/webtech2/4/getsport.php?ath="+document.getElementById("athname").value, true);
             this.xhr.onreadystatechange = this.showData;
+
+            this.xhr.open("GET", "http://localhost/webtech2/4/getsport.php?ath="+document.getElementById("athname").value, true);
             this.xhr.send();
           },
           showData : function() {
+            console.log(this);
             if(this.readyState == 4 && this.status == 200)
               // alert(this.responseText);
               var json = JSON.parse(this.responseText);
