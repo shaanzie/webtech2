@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+
+  <title>Periodic-Refresh</title>
+    <script type="text/javascript">
+          /*
+          The client or all clients send requests to see if anything is changed on the server, and this is called periodic refresh. But this may cause the server to be overloaded.
+          Here, we use a timeout property of the xhr object where a time period is set, and if a request isn't served in the time period, the request times out and an xhr.ontimeout
+          event is triggered.
+          When this happens, we code a failed function, to provide user experience, by using the concept of exponential backoff.
+
+          */
+
+            function init() {
+              obj = new Scores();
+              // obj.getScores();
+              c = setInterval(obj.getScores, 2000);
+
+            }
+
+            function Scores() {
+
+              this.getScores = function() {
+                // Create xhr instance
+                xhr = new XMLHttpRequest();
+                xhr.open("GET","http://localhost/webtech2/6/pr.php", true);
+                xhr.onreadystatechange = obj.showScores;
+                xhr.send();
+
+                // When readystate changes call obj.showScores
+              };
+              this.showScores = function() {
+                // Read the contents of response text and populate divs
+                if(this.readyState == 4 && this.status == 200) {
+                  contents = this.response.split(";");
+                  console.log(contents);
+                  var team1 = document.getElementById("team1");
+                  var team2 = document.getElementById("team2");
+                  var team3 = document.getElementById("team3");
+                  team1.innerHTML = contents[0];
+                  team2.innerHTML = contents[1];
+                  team3.innerHTML = contents[2];
+                }
+              }
+            }
+
+        </script>
+
+</head>
+
+<body onload="init()">
+  <div id = "team1">
+    100
+  </div>
+  <br>
+  <div id = "team2">
+    200
+  </div>
+  <br>
+  <div id = "team3">
+    300
+  </div>
+</body>
+</html>
