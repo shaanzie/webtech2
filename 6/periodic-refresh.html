@@ -25,6 +25,8 @@
                 xhr = new XMLHttpRequest();
                 xhr.open("GET","http://localhost/webtech2/6/pr.php", true);
                 xhr.onreadystatechange = obj.showScores;
+                xhr.timeout = 3000;
+                xhr.ontimeout = obj.backoff();
                 xhr.send();
 
                 // When readystate changes call obj.showScores
@@ -41,7 +43,15 @@
                   team2.innerHTML = contents[1];
                   team3.innerHTML = contents[2];
                 }
-              }
+              };
+              this.backoff = function() {
+                // Cancel request and poll for server status change
+                // clearInterval(c);
+                // Increase time interval
+                
+                // Exponential backoff
+
+              };
             }
 
         </script>
