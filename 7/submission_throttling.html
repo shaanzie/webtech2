@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Submission Throttling</title>
+    <style>
+        #container {
+          display : none;
+          border : solid 1px black;
+          width : 200px;
+        }
+        .itemdiv:hover {
+          background-color : grey;
+        }
+        .itemdiv {
+          background-color : white;
+          border : 1px solid black;
+          width : 200px;
+        }
+    </style>
+    <script type="text/javascript">
+        // Late send is when some data is buffered. (Google Suggests)
+        // Early send is when ever action triggers a send of data to the server.
+        // Submission Throttling is when data can be buffered and the sending of data can be determined by the user.
+        function Suggest() {
+          this.xhr = new XMLHttpRequest();
+          tempObj = this;               // To not lose reference to the obj object
+          this.search = null;           // Made null so that it is loaded only after the html is rendered
+          this.timer = null;
+          this.cleardiv = null;
+
+          this.getTerm = function() {
+              if(this.timer) {
+                clearTimeout(this.timer);
+              }
+              tempObj.timer = setTimeout(tempObj.sendTerm, 1000);
+          }
+
+          this.sendTerm = function() {
+
+              tempObj.search = document.getElementById("search");
+              document.getElementById("container").innerHTML = "";
+              tempObj.search.style.backgroundColor = "white";
+
+              if(localStorage.getItem(tempObj.search.value )!= null) {
+                console.log(localStorage.getItem(tempObj.search.value));
+                tempObj.populateFood(tempObj.search.value, localStorage.getItem(tempObj.search.value));
+              }
+              else {
+                tempObj.xhr.onreadystatechange = tempObj.displayResults;
+                tempObj.xhr.open("GET", "suggest.php?term=" + tempObj.search.value, true);
+                tempObj.xhr.send();
+
+              }
+          }
+          this.displayResults = function() {
+            if(tempObj.xhr.readyState == 4 && tempObj.xhr.status == 200) {
+              var res = this.responseText;
+              console.log(res);
+              var json = JSON.parse(res);
+              if(json.length == 0) {
+                tempObj.search.value = "No results found!";
+                tempObj.search.style.backgroundColor = "red";
+                tempObj.search.onclick = function() {
+                  tempObj.search.innerHTML = "";
+                }
+              }
+              else {
+                tempObj.populateFood(json);
+                localStorage.setItem(tempObj.search.value, json);
+              }
+            }
+          }
+
+          this.populateFood = function(json) {
+            var container = document.getElementById("container");
+            for(var i = 0; i < json.length; i++) {
+              var itemdiv = document.createElement("div");
+              itemdiv.id = "itemdiv"
+              itemdiv.innerHTML = json[i];
+              container.appendChild(itemdiv);
+            }
+            container.style.display = "block";
+          }
+        }
+        var obj = new Suggest();
+    </script>
+  </head>
+  <body>
+    <input type="text" id = "search" onkeypress="obj.getTerm()"/>
+    <div id = "container">
+
+    </div>
+  </body>
+</html>
