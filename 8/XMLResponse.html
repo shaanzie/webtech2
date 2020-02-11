@@ -5,17 +5,22 @@
             var obj = {
                 xhr : new XMLHttpRequest(),
                 getData : function() {
-                    this.xhr.open("GET", "xhrxml.php", true);
+                    this.xhr.open("GET", "olympics.xml", true);
                     this.xhr.onreadystatechange = this.showData;
                     this.xhr.send();
                 },
                 showData : function() {
                     if(this.readyState == 4 && this.status == 200)
                     {
-                        console.log(this.responseXML);
-                        // root = this.responseXML.documentElement;
-                        // console.log(root);
-                        // name = root.getElementsbyTagName("name")[0].firstChild.nodeValue;
+                        // console.log(this.responseXML);
+                        root = this.responseXML.documentElement;
+                        console.log(root);
+                        var title = root.getElementsByTagName("item")[0].getElementsByTagName("title")[0].firstChild.nodeValue;
+                        var link = root.getElementsByTagName("item")[0].getElementsByTagName("link")[0].firstChild.nodeValue;
+                        var anchor = document.createElement("a");
+                        anchor.href = link;
+                        anchor.innerHTML = title;
+                        document.body.appendChild(anchor);
                     }
                 }
             };
