@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>XML Response</title>
+        <script>
+            var obj = {
+                xhr : new XMLHttpRequest(),
+                getData : function() {
+                    this.xhr.open("GET", "xhrxml.php", true);
+                    this.xhr.onreadystatechange = this.showData;
+                    this.xhr.send();
+                },
+                showData : function() {
+                    if(this.readyState == 4 && this.status == 200)
+                    {
+                        console.log(this.responseXML);
+                        // root = this.responseXML.documentElement;
+                        // console.log(root);
+                        // name = root.getElementsbyTagName("name")[0].firstChild.nodeValue;
+                    }
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <button onclick="obj.getData()">GET XML</button>
+    </body>
+</html>
