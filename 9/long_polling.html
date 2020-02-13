@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>Long Polling</title>
+    </head>
+    <script>
+        var  t = 0;
+        var obj = {
+            xhr : new XMLHttpRequest(),
+            monitor : function() {
+                this.xhr.onreadystatechange = this.show;
+                this.xhr.open("GET", "lp.php?t=" + t, true);
+                this.xhr.send();
+            },
+            show : function() {
+                if(this.readyState == 4 && this.status == 200) {
+                    var div = document.getElementById("content");
+                    var res = JSON.parse(this.response);
+                    if(this.responseText.indexOf("Fatal") > 0) {
+                        obj.monitor();
+                    }
+                    console.log(this.response);
+                    div.innerHTML += res.data + "<br>";  
+                    t = res.time;
+                    obj.monitor();  
+                }
+            }
+        }
+    </script>
+    <body onload="obj.monitor()">
+        <div id="content">
+
+        </div>
+    </body>
+</html>

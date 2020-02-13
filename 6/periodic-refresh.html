@@ -8,7 +8,7 @@
           Here, we use a timeout property of the xhr object where a time period is set, and if a request isn't served in the time period, the request times out and an xhr.ontimeout
           event is triggered.
           When this happens, we code a failed function, to provide user experience, by using the concept of exponential backoff.
-
+          Streaming is done to stop short bursts of data by sending data over one connection by continuous flushing. 
           */
 
             function init() {
@@ -53,7 +53,12 @@
 
               };
             }
+            /*
+            In short polling, the client sends requests to the server continuously without a reply. In this scenario, we keep a connection open from the client to the server. This is called long polling. This is called COMET or Reverse AJAX, where the server sends data.
+            In another scenario, COMET or Reverse AJAX is used, where the server asynchronously queries the client.
 
+            Sometimes, it is better to delay multiple requests at the same time and send all of them at once. This is a streaming issue.
+            */
         </script>
 
 </head>
