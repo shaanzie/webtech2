@@ -6,6 +6,8 @@
         Short polling is polling the data at short bursts from the server. 
         Long polling is keeping the client-server connection open instead of repeated polling.
         Streaming data is requesting data just once, and the server may send multiple requests.
+
+        PHP has a buffer, and apache has a buffer. When we say echo count 0, it gets pushed to PHPs buffer. The buffer is emptied when the buffer is full or the script ends.
      -->
     <script>
         var  t = 0;
