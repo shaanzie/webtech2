@@ -2,6 +2,11 @@
     <head>
         <title>Long Polling</title>
     </head>
+    <!-- 
+        Short polling is polling the data at short bursts from the server. 
+        Long polling is keeping the client-server connection open instead of repeated polling.
+        Streaming data is requesting data just once, and the server may send multiple requests.
+     -->
     <script>
         var  t = 0;
         var obj = {
