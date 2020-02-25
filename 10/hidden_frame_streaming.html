@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+    <title>Streaming Data</title>
+    <style>
+
+    </style>
+    <script>
+        timer = null;
+        var obj = {
+            xhr : new XMLHttpRequest(),
+            monitor : function() {
+                document.getElementById("hf").src = "hidden_stream.php";
+            },
+            updateDiv : function(res) {
+                var div = document.createElement("div");
+                div.innerHTML = res;
+                document.body.appendChild(div);
+            },
+            // To monitor the server, we create a heartbeat function
+            heartbeat : function() {
+                if(timer) {
+                    clearTimeout(timer);
+                }
+                timer = setTimeout(obj.monitor, 10000);
+                console.log("Where u");
+            }
+        };
+
+    </script>
+</head>
+<body>
+
+    <iframe id = "hf" height="0" width="0"></iframe>
+    <button onclick="obj.monitor()">Click to monitor</button>
+</body>
+</html>
