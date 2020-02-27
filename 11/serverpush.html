@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <title>Server Side Events</title>
+    <script>
+        /*
+        Server sent events are used ot push server events to the client. A client request gets a stream of events as a response, and the client should listen to these event listeners. Server push is the technology/framework used here, and the response comes as a text/event-stream.
+
+        The event source by default has 3 events
+        1. message
+        2. error
+        3. open
+        It also has 3 readystates
+        1. Connect (0)
+        2. Open (1)
+        3. Close (2)
+
+        The open takes place when the new EventSource() object is instantiated. The message event is triggered when the messages are streamed. The error takes place when the connection is interrupted.
+        */
+
+        var obj = {
+            monitor : function() {
+                var evs = new EventSource("sse_c.php");
+                evs.addEventListener("ev1", obj.showData, false);
+                evs.addEventListener("open", obj.onOpen, false);
+                evs.addEventListener("error", obj.onError, false);
+                evs.addEventListener("close", obj.onClose, false);
+            },
+            showData : function(e) {
+                // console.log("Hello");
+                console.log(e.data);
+                var div = document.createElement("div");
+                div.innerHTML = e.data;
+                document.body.appendChild(div);
+            },
+            onOpen: function(e) {
+                console.log("Opened stuff");
+            },
+            onError : function(e) {
+                console.log("Error stuff");
+            },
+            onClose : function(e) {
+                evs.close();
+            }
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <button onclick ="obj.monitor()">Click</button>
+</body>
+
+</html>
